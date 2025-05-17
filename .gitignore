@@ -1,0 +1,33 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore virtual environment folder
+myenv/
+
+
+Chatbot/modelv4
+
+images from google/
+
+Dataset/
+
+modelv4/
+
+images from google/
+
+predicted_applerust.jpeg
+
+plot_classes2.py
+
+non-conversational frontend/ 
+
+runs/
+
+sobel/
+
+visualized/
+
+plots/
+
+predictions/

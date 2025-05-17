@@ -1,0 +1,184 @@
+[
+  {
+    "disease": "Apple Scab Leaf",
+    "causes": "Fungus Venturia inaequalis, favored by cool, wet conditions",
+    "symptoms": "Velvety, round spots on leaves, initially olive-green, turning dark brown to black, leading to leaf drop",
+    "treatments": "Apply fungicides like captan or mancozeb, prune for air circulation, remove infected leaves",
+    "affected": "Apple and crabapple trees"
+  },
+  {
+    "disease": "Maintenance for Apple leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Feed twice yearly with Blood, Fish, and Bone, mulch in mid-Spring, prune for air circulation, water young trees, choose disease-resistant varieties",
+    "affected": "Apple trees"
+  },
+  {
+    "disease": "Apple rust leaf (Cedar-Apple Rust)",
+    "causes": "Fungus Gymnosporangium juniperi, requires both apple and juniper hosts, favored by wet conditions",
+    "symptoms": "Small yellow spots on upper leaf surface, enlarge with orange droplets, turn into spots with black fruiting bodies",
+    "treatments": "Remove infected leaves, prune for air circulation, use fungicides like myclobutanil, remove nearby junipers",
+    "affected": "Apple and crabapple trees"
+  },
+  {
+    "disease": "Maintenance for Bell pepper leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Water 1-2 inches weekly, feed with high-potassium fertilizer, pinch at 8 inches, mulch, control pests like aphids, prevent diseases with sanitation",
+    "affected": "Bell pepper plants"
+  },
+  {
+    "disease": "Bell_pepper leaf spot (Bacterial Leaf Spot)",
+    "causes": "Bacterium Xanthomonas campestris pv. vesicatoria, spreads in hot, humid conditions, through seeds or debris",
+    "symptoms": "Dark spots on leaves, circular or irregular, with yellow halos, can lead to defoliation",
+    "treatments": "Use disease-free seeds, treat with chlorine bleach, mulch deeply, avoid overhead watering, apply copper bactericides",
+    "affected": "Bell pepper and solanaceous plants"
+  },
+  {
+    "disease": "Maintenance for Blueberry leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Plant in acidic soil (pH 4.0-5.2), use acidic mulches, water appropriately, fertilize, prune yearly",
+    "affected": "Blueberry plants"
+  },
+  {
+    "disease": "Maintenance for Cherry leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Water when top 2-3 inches of soil are dry, mulch with organic material, fertilize, prune yearly, manage diseases and pests",
+    "affected": "Cherry trees"
+  },
+  {
+    "disease": "Corn leaf blight (Northern Corn Leaf Blight)",
+    "causes": "Fungus Exserohilum turcicum, favored by extended leaf wetness and moderate temperatures (64-81°F)",
+    "symptoms": "Canoe-shaped lesions 1-6 inches long, initially gray-green, turning tan with dark sporulation",
+    "treatments": "Use resistant hybrids, crop rotation, tillage, apply fungicides if necessary",
+    "affected": "Corn plants"
+  },
+  {
+    "disease": "Corn rust leaf (Common Corn Rust)",
+    "causes": "Fungus Puccinia sorghi, spreads via wind-blown spores, favored by cool, wet weather",
+    "symptoms": "Small, tan spots turning into elongated, brick-red to cinnamon-brown pustules on both leaf surfaces",
+    "treatments": "Use resistant hybrids, timely planting, apply fungicides if necessary",
+    "affected": "Corn plants"
+  },
+  {
+    "disease": "Maintenance for Peach leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Choose disease-resistant varieties, plant in full sun, water appropriately, fertilize, prune yearly, control diseases",
+    "affected": "Peach trees"
+  },
+  {
+    "disease": "Potato leaf early blight (Early Blight of Potato)",
+    "causes": "Fungus Alternaria solani, spreads via wind and water, favored by warm, humid conditions",
+    "symptoms": "Small, dark brown spots on older leaves, enlarge with concentric rings, lead to leaf yellowing and death",
+    "treatments": "Use disease-resistant varieties, proper fertilization, irrigation, crop rotation, apply fungicides if necessary",
+    "affected": "Potato plants"
+  },
+  {
+    "disease": "Potato leaf late blight (Late Blight of Potato)",
+    "causes": "Oomycete pathogen Phytophthora infestans, spreads via air-borne sporangia, favored by cool, moist conditions",
+    "symptoms": "Large, dark brown blotches with green gray edges on leaves, stem lesions, brown spots on tubers",
+    "treatments": "Use disease-resistant varieties, crop rotation, sanitation, apply fungicides if necessary",
+    "affected": "Potato and tomato plants"
+  },
+  {
+    "disease": "Maintenance for Raspberry leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Prune yearly, train canes, ensure air circulation, manage pests and diseases, provide proper fertilization and watering",
+    "affected": "Raspberry plants"
+  },
+  {
+    "disease": "Maintenance for Soybean leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Proper planting, weed control, irrigation at flowering and seed-set, balanced fertilization, pest/disease management",
+    "affected": "Soybean plants"
+  },
+  {
+    "disease": "Squash Powdery Mildew Leaf (Powdery Mildew of Squashes)",
+    "causes": "Fungus Podosphaera xanthii, spreads via wind-blown spores, favored by warm, dry conditions",
+    "symptoms": "White powdery spots on leaves, expand into large blotches, lead to leaf yellowing and death",
+    "treatments": "Use resistant varieties, proper spacing, remove infected material, apply fungicides if necessary",
+    "affected": "Squash plants"
+  },
+  {
+    "disease": "Maintenance for Strawberry leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Prune old leaves and runners, space plants, use mulch, manage pests and diseases, provide fertilization and watering",
+    "affected": "Strawberry plants"
+  },
+  {
+    "disease": "Tomato Early Blight Leaf (Early Blight of Tomato)",
+    "causes": "Fungus Alternaria solani, spreads via wind and water, favored by warm, wet conditions",
+    "symptoms": "Small, dark spots on older leaves, enlarge with concentric rings, lead to leaf yellowing and defoliation",
+    "treatments": "Use disease-resistant varieties, proper spacing, avoid overhead watering, remove infected material, apply fungicides if necessary",
+    "affected": "Tomato plants"
+  },
+  {
+    "disease": "Tomato Septoria Leaf Spot (Septoria Leaf Spot of Tomato)",
+    "causes": "Fungus Septoria lycopersici, spreads via wind and water, favored by warm, wet conditions",
+    "symptoms": "Small, circular gray lesions with dark borders on lower leaves, enlarge and cause leaf yellowing and death",
+    "treatments": "Use disease-resistant varieties, proper spacing, avoid overhead watering, remove infected material, apply fungicides if necessary",
+    "affected": "Tomato plants"
+  },
+  {
+    "disease": "Maintenance for Tomato leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Proper watering, balanced fertilization, pruning, pest and disease management, provide support for plants",
+    "affected": "Tomato plants"
+  },
+  {
+    "disease": "Tomato leaf bacterial spot (Bacterial Spot of Tomato)",
+    "causes": "Bacteria of the genus Xanthomonas, spreads via water and wind, favored by warm, wet conditions",
+    "symptoms": "Small, dark spots on leaves, enlarge and cause leaf yellowing and defoliation, fruit with scab-like spots",
+    "treatments": "Use disease-resistant varieties, proper spacing, avoid overhead watering, remove infected material, apply copper-based bactericides",
+    "affected": "Tomato plants"
+  },
+  {
+    "disease": "Tomato leaf late blight (Late Blight of Tomato)",
+    "causes": "Fungus-like organism Phytophthora infestans, spreads via wind and water, favored by cool, wet conditions",
+    "symptoms": "Large, dark brown blotches with green gray edges on leaves, lead to leaf death, fruit with firm, dark spots",
+    "treatments": "Use disease-resistant varieties, proper spacing, avoid overhead watering, remove infected material, apply fungicides if necessary",
+    "affected": "Tomato plants"
+  },
+  {
+    "disease": "Tomato leaf mosaic virus (Mosaic Viruses of Tomato)",
+    "causes": "Various viruses, often spread by insects like aphids, or through infected seeds or plant material",
+    "symptoms": "Mottled leaves with yellow, white, and green spots, leaf distortion, stunted growth, discolored fruit",
+    "treatments": "Use virus-resistant varieties, control insect vectors, practice good sanitation, remove infected plants",
+    "affected": "Tomato plants"
+  },
+  {
+    "disease": "Tomato leaf yellow virus (Tomato Yellow Leaf Curl Virus)",
+    "causes": "Virus transmitted by whiteflies, particularly Bemisia tabaci",
+    "symptoms": "Small, yellow leaves that curl upwards, stunted growth, bushy appearance, reduced fruit yield",
+    "treatments": "Use virus-resistant varieties, control whitefly populations, practice good sanitation, remove infected plants",
+    "affected": "Tomato plants"
+  },
+  {
+    "disease": "Tomato mold leaf (Leaf Mold of Tomato)",
+    "causes": "Fungus Passalora fulva, spreads in humid conditions",
+    "symptoms": "Yellow patches on upper leaf surface, grayish-brown mold on lower surface, leaves dry and curl",
+    "treatments": "Use fungicides like chlorothalonil, practice good sanitation, control humidity",
+    "affected": "Tomato plants"
+  },
+  {
+    "disease": "Maintenance for grape leaf",
+    "causes": "N/A",
+    "symptoms": "N/A",
+    "treatments": "Proper pruning, training, pest and disease management, provide adequate water and nutrients",
+    "affected": "Grape plants"
+  },
+  {
+    "disease": "grape leaf black rot",
+    "causes": "Fungus Guignardia bidwellii, thrives in hot and humid weather",
+    "symptoms": "Circular spots on leaves, initially tan with red margin, turn brown with black, pimple-like fruiting bodies",
+    "treatments": "Apply fungicides like mancozeb, prune for air circulation, remove infected leaves, select resistant varieties",
+    "affected": "Grapevines (Vitis species)"
+  }
+]
