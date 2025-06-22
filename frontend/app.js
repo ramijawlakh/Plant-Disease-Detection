@@ -347,28 +347,26 @@ const Dashboard = {
         }
         
         statsCards.innerHTML = `
-            <div class="col-md-3 mb-4">
-                <div class="stats-card">
-                    <div class="stats-number">${analytics.total_predictions || 0}</div>
-                    <div class="stats-label">Disease Detections</div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="stats-card">
-                    <div class="stats-number">${analytics.total_chats || 0}</div>
-                    <div class="stats-label">Chat Conversations</div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="stats-card">
-                    <div class="stats-number">${analytics.total_users || 0}</div>
-                    <div class="stats-label">Total Users</div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="stats-card">
-                    <div class="stats-number">${analytics.most_common_diseases?.length || 0}</div>
-                    <div class="stats-label">Diseases Tracked</div>
+            <div class="col-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="stats-card">
+                            <div class="stats-number">${analytics.total_predictions || 0}</div>
+                            <div class="stats-label">Your Disease Detections</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="stats-card">
+                            <div class="stats-number">${analytics.total_chats || 0}</div>
+                            <div class="stats-label">Your Chat Conversations</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="stats-card">
+                            <div class="stats-number">${analytics.most_common_diseases?.length || 0}</div>
+                            <div class="stats-label">Your Diseases Tracked</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;

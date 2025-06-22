@@ -237,21 +237,20 @@ async def get_analytics(
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
-    """Get analytics data (admin only for now, but can be expanded)"""
+    """Get user-specific analytics data"""
     
-    # Basic stats
-    total_predictions = db.query(Prediction).count()
-    total_users = db.query(User).count()
-    total_chats = db.query(ChatHistory).count()
+    # User-specific stats instead of global totals
+    user_predictions = db.query(Prediction).filter(Prediction.user_id == current_user.id).count()
+    user_chats = db.query(ChatHistory).filter(ChatHistory.user_id == current_user.id).count()
     
-    # Most common diseases (simplified)
-    # In a real implementation, you'd want to aggregate from prediction_results JSON
-    predictions_with_diseases = db.query(Prediction).filter(
+    # Most common diseases for this user only
+    user_predictions_with_diseases = db.query(Prediction).filter(
+        Prediction.user_id == current_user.id,
         Prediction.detected_diseases.isnot(None)
     ).all()
     
     disease_counts = {}
-    for pred in predictions_with_diseases:
+    for pred in user_predictions_with_diseases:
         try:
             diseases = json.loads(pred.detected_diseases)
             for disease in diseases:
@@ -260,11 +259,11 @@ async def get_analytics(
             continue
     
     # Convert to stats format
-    total_disease_detections = sum(disease_counts.values())
+    total_user_disease_detections = sum(disease_counts.values())
     most_common_diseases = []
     
     for disease, count in sorted(disease_counts.items(), key=lambda x: x[1], reverse=True)[:10]:
-        percentage = (count / total_disease_detections * 100) if total_disease_detections > 0 else 0
+        percentage = (count / total_user_disease_detections * 100) if total_user_disease_detections > 0 else 0
         most_common_diseases.append({
             "disease_name": disease,
             "count": count,
@@ -272,12 +271,12 @@ async def get_analytics(
         })
     
     return {
-        "total_predictions": total_predictions,
-        "total_users": total_users,
-        "total_chats": total_chats,
+        "total_predictions": user_predictions,
+        "total_users": 1,  # Always 1 for user-specific view
+        "total_chats": user_chats,
         "most_common_diseases": most_common_diseases,
         "recent_activity": {
-            "message": "Analytics data collected successfully"
+            "message": f"Personal analytics for {current_user.username}"
         }
     }
 
