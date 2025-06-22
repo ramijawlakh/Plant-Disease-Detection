@@ -280,6 +280,96 @@ async def get_analytics(
         }
     }
 
+# ================= PROFILE ENDPOINTS ================= #
+
+@app.post("/api/profile/change-password")
+async def change_password(
+    password_data: dict,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """Change user password"""
+    from auth import verify_password
+    
+    # Verify current password
+    if not verify_password(password_data["current_password"], current_user.hashed_password):
+        raise HTTPException(
+            status_code=400,
+            detail="Current password is incorrect"
+        )
+    
+    # Update password
+    current_user.hashed_password = get_password_hash(password_data["new_password"])
+    db.commit()
+    
+    return {"message": "Password changed successfully"}
+
+@app.post("/api/profile/upload-picture")
+async def upload_profile_picture(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """Upload profile picture"""
+    
+    # Validate file type
+    if not file.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail="File must be an image")
+    
+    # Create profile pictures directory
+    profile_dir = Path("uploads/profiles")
+    profile_dir.mkdir(exist_ok=True, parents=True)
+    
+    # Save uploaded file
+    file_extension = Path(file.filename).suffix
+    profile_filename = f"profile_{current_user.id}_{file.filename}"
+    profile_path = profile_dir / profile_filename
+    
+    with open(profile_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    # Update user profile picture in database
+    current_user.profile_picture = profile_filename
+    db.commit()
+    
+    return {
+        "message": "Profile picture uploaded successfully",
+        "profile_picture_url": f"/api/images/profiles/{profile_filename}"
+    }
+
+@app.put("/api/profile/update")
+async def update_profile(
+    profile_data: dict,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """Update user profile information"""
+    
+    # Check if email is being changed and if it's already taken
+    if "email" in profile_data and profile_data["email"] != current_user.email:
+        existing_user = db.query(User).filter(User.email == profile_data["email"]).first()
+        if existing_user:
+            raise HTTPException(status_code=400, detail="Email already registered")
+        current_user.email = profile_data["email"]
+    
+    # Update full name if provided
+    if "full_name" in profile_data:
+        current_user.full_name = profile_data["full_name"]
+    
+    db.commit()
+    db.refresh(current_user)
+    
+    return {"message": "Profile updated successfully", "user": current_user}
+
+@app.get("/api/images/profiles/{filename}")
+async def get_profile_image(filename: str):
+    """Serve profile pictures"""
+    file_path = Path("uploads/profiles") / filename
+    if file_path.exists():
+        return FileResponse(file_path)
+    else:
+        raise HTTPException(status_code=404, detail="Image not found")
+
 # ================= STATIC FILES ================= #
 
 # Serve the React frontend (will be created next)

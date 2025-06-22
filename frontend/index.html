@@ -49,8 +49,14 @@
                         <button class="btn btn-light" onclick="showAuthModal('register')">Sign Up</button>
                     </div>
                     <div id="userInfo" class="d-none">
-                        <span class="navbar-text me-3">Welcome, <span id="userName"></span>!</span>
-                        <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+                        <div class="d-flex align-items-center">
+                            <div class="profile-icon me-3" onclick="showSection('profile')" style="cursor: pointer;">
+                                <img id="navProfilePicture" src="#" alt="Profile" class="rounded-circle d-none" width="35" height="35">
+                                <i id="navDefaultIcon" class="fas fa-user-circle fa-2x text-light"></i>
+                            </div>
+                            <span class="navbar-text me-3">Welcome, <span id="userName"></span>!</span>
+                            <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -236,6 +242,115 @@
                                 <div class="tab-pane fade" id="chat-history">
                                     <div id="chatHistoryContainer">
                                         <!-- Populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="content-section d-none">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-success text-white">
+                            <h4><i class="fas fa-user-cog"></i> My Profile</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="profileTabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#profile-info">
+                                        <i class="fas fa-user"></i> Profile Info
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#change-password">
+                                        <i class="fas fa-lock"></i> Change Password
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#profile-history">
+                                        <i class="fas fa-history"></i> My Predictions
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content mt-3">
+                                <!-- Profile Info Tab -->
+                                <div class="tab-pane fade show active" id="profile-info">
+                                    <div class="row">
+                                        <div class="col-md-4 text-center">
+                                            <div class="profile-picture-section">
+                                                <img id="profilePicture" src="#" alt="Profile Picture" class="img-fluid rounded-circle shadow d-none" style="width: 150px; height: 150px; object-fit: cover;">
+                                                <div id="defaultProfileIcon" class="text-center">
+                                                    <i class="fas fa-user-circle text-muted" style="font-size: 150px;"></i>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <input type="file" id="profilePictureInput" accept="image/*" class="d-none">
+                                                    <button class="btn btn-outline-success btn-sm" onclick="document.getElementById('profilePictureInput').click()">
+                                                        <i class="fas fa-camera"></i> Change Picture
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <form id="profileUpdateForm">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Full Name</label>
+                                                    <input type="text" class="form-control" id="profileFullName">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Username</label>
+                                                    <input type="text" class="form-control" id="profileUsername" readonly>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Email</label>
+                                                    <input type="email" class="form-control" id="profileEmail">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Member Since</label>
+                                                    <input type="text" class="form-control" id="profileMemberSince" readonly>
+                                                </div>
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="fas fa-save"></i> Update Profile
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Change Password Tab -->
+                                <div class="tab-pane fade" id="change-password">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6">
+                                            <form id="changePasswordForm">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Current Password</label>
+                                                    <input type="password" class="form-control" id="currentPassword" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">New Password</label>
+                                                    <input type="password" class="form-control" id="newPassword" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Confirm New Password</label>
+                                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-success w-100">
+                                                    <i class="fas fa-key"></i> Change Password
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Profile History Tab -->
+                                <div class="tab-pane fade" id="profile-history">
+                                    <div id="profileHistoryContainer">
+                                        <!-- Will be populated by JavaScript -->
                                     </div>
                                 </div>
                             </div>

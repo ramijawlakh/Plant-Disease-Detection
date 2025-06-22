@@ -471,3 +471,18 @@ body {
 .bg-success {
     background: linear-gradient(45deg, #28a745, #20c997) !important;
 }
+
+/* Profile Page Styles */
+.profile-picture-section img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-picture-section img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.profile-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}

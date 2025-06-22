@@ -19,7 +19,12 @@ const API_ENDPOINTS = {
     history: '/api/history',
     analytics: '/api/analytics',
     predictions: '/api/predictions',
-    chatHistory: '/api/chat/history'
+    chatHistory: '/api/chat/history',
+    profile: {
+        changePassword: '/api/profile/change-password',
+        uploadPicture: '/api/profile/upload-picture',
+        update: '/api/profile/update'
+    }
 };
 
 // Utility Functions
@@ -194,11 +199,23 @@ const Auth = {
         const authButtons = document.getElementById('authButtons');
         const userInfo = document.getElementById('userInfo');
         const userName = document.getElementById('userName');
+        const navProfilePicture = document.getElementById('navProfilePicture');
+        const navDefaultIcon = document.getElementById('navDefaultIcon');
         
         if (AppState.isAuthenticated) {
             authButtons.classList.add('d-none');
             userInfo.classList.remove('d-none');
             userName.textContent = AppState.user?.username || 'User';
+            
+            // Handle profile picture display in navbar
+            if (AppState.user?.profile_picture) {
+                navProfilePicture.src = `/api/images/profiles/${AppState.user.profile_picture}`;
+                navProfilePicture.classList.remove('d-none');
+                navDefaultIcon.classList.add('d-none');
+            } else {
+                navProfilePicture.classList.add('d-none');
+                navDefaultIcon.classList.remove('d-none');
+            }
         } else {
             authButtons.classList.remove('d-none');
             userInfo.classList.add('d-none');
@@ -288,6 +305,9 @@ const Navigation = {
                     break;
                 case 'chat':
                     Chat.init();
+                    break;
+                case 'profile':
+                    Profile.loadProfile();
                     break;
             }
         }
@@ -753,6 +773,196 @@ const History = {
 window.showSection = Navigation.showSection;
 window.showAuthModal = Auth.showAuthModal;
 window.logout = Auth.logout;
+
+// Profile Module
+const Profile = {
+    loadProfile: async () => {
+        if (!AppState.isAuthenticated) {
+            Navigation.showSection('dashboard');
+            return;
+        }
+        
+        Profile.populateProfileForm();
+        Profile.initProfileHandlers();
+        await Profile.loadProfileHistory();
+    },
+    
+    populateProfileForm: () => {
+        const user = AppState.user;
+        document.getElementById('profileFullName').value = user.full_name || '';
+        document.getElementById('profileUsername').value = user.username || '';
+        document.getElementById('profileEmail').value = user.email || '';
+        document.getElementById('profileMemberSince').value = new Date(user.created_at).toLocaleDateString();
+        
+        // Handle profile picture display
+        const profilePicture = document.getElementById('profilePicture');
+        const defaultProfileIcon = document.getElementById('defaultProfileIcon');
+        
+        if (user.profile_picture) {
+            profilePicture.src = `/api/images/profiles/${user.profile_picture}`;
+            profilePicture.classList.remove('d-none');
+            defaultProfileIcon.classList.add('d-none');
+        } else {
+            profilePicture.classList.add('d-none');
+            defaultProfileIcon.classList.remove('d-none');
+        }
+    },
+    
+    initProfileHandlers: () => {
+        // Profile picture upload handler
+        document.getElementById('profilePictureInput').addEventListener('change', Profile.handleProfilePictureUpload);
+        
+        // Profile update form handler
+        document.getElementById('profileUpdateForm').addEventListener('submit', Profile.handleProfileUpdate);
+        
+        // Password change form handler
+        document.getElementById('changePasswordForm').addEventListener('submit', Profile.handlePasswordChange);
+    },
+    
+    handleProfilePictureUpload: async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        try {
+            Utils.showLoading();
+            const result = await Utils.apiRequest(API_ENDPOINTS.profile.uploadPicture, {
+                method: 'POST',
+                body: formData
+            });
+            
+            // Update user data and UI
+            AppState.user.profile_picture = result.profile_picture_url.split('/').pop();
+            localStorage.setItem('user', JSON.stringify(AppState.user));
+            
+            Profile.populateProfileForm();
+            Auth.updateUI();
+            Utils.showAlert('Profile picture updated successfully!');
+            
+        } catch (error) {
+            Utils.showAlert('Failed to upload profile picture: ' + error.message, 'danger');
+        } finally {
+            Utils.hideLoading();
+        }
+    },
+    
+    handleProfileUpdate: async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            full_name: document.getElementById('profileFullName').value,
+            email: document.getElementById('profileEmail').value
+        };
+        
+        try {
+            Utils.showLoading();
+            const result = await Utils.apiRequest(API_ENDPOINTS.profile.update, {
+                method: 'PUT',
+                body: JSON.stringify(formData)
+            });
+            
+            // Update user data
+            AppState.user = result.user;
+            localStorage.setItem('user', JSON.stringify(AppState.user));
+            
+            Auth.updateUI();
+            Utils.showAlert('Profile updated successfully!');
+            
+        } catch (error) {
+            Utils.showAlert('Failed to update profile: ' + error.message, 'danger');
+        } finally {
+            Utils.hideLoading();
+        }
+    },
+    
+    handlePasswordChange: async (e) => {
+        e.preventDefault();
+        
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (newPassword !== confirmPassword) {
+            Utils.showAlert('New passwords do not match', 'danger');
+            return;
+        }
+        
+        if (newPassword.length < 6) {
+            Utils.showAlert('New password must be at least 6 characters long', 'danger');
+            return;
+        }
+        
+        try {
+            Utils.showLoading();
+            await Utils.apiRequest(API_ENDPOINTS.profile.changePassword, {
+                method: 'POST',
+                body: JSON.stringify({
+                    current_password: currentPassword,
+                    new_password: newPassword
+                })
+            });
+            
+            // Clear form
+            document.getElementById('changePasswordForm').reset();
+            Utils.showAlert('Password changed successfully!');
+            
+        } catch (error) {
+            Utils.showAlert('Failed to change password: ' + error.message, 'danger');
+        } finally {
+            Utils.hideLoading();
+        }
+    },
+    
+    loadProfileHistory: async () => {
+        try {
+            const predictions = await Utils.apiRequest(API_ENDPOINTS.predictions).catch(() => []);
+            Profile.renderProfileHistory(predictions);
+        } catch (error) {
+            console.error('Failed to load profile history:', error);
+        }
+    },
+    
+    renderProfileHistory: (predictions) => {
+        const container = document.getElementById('profileHistoryContainer');
+        
+        if (!predictions || predictions.length === 0) {
+            container.innerHTML = `
+                <div class="text-center">
+                    <i class="fas fa-leaf fa-3x text-muted mb-3"></i>
+                    <h5>No Predictions Yet</h5>
+                    <p>Start using our disease detection feature to see your history here.</p>
+                    <button class="btn btn-success" onclick="Navigation.showSection('predict')">
+                        <i class="fas fa-camera"></i> Detect Diseases
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        const historyHTML = predictions.map(prediction => `
+            <div class="history-item">
+                <div class="history-date">${Utils.formatDate(prediction.created_at)}</div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h6><i class="fas fa-image"></i> ${prediction.image_filename}</h6>
+                        <p><strong>Confidence Threshold:</strong> ${(prediction.confidence_threshold * 100).toFixed(0)}%</p>
+                        ${prediction.detected_diseases ? 
+                            `<p><strong>Detected Diseases:</strong> ${JSON.parse(prediction.detected_diseases).join(', ')}</p>` 
+                            : '<p><em>No diseases detected</em></p>'
+                        }
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <small class="text-muted">ID: ${prediction.id}</small>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        container.innerHTML = historyHTML;
+    }
+};
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {

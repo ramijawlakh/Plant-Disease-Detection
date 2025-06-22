@@ -17,6 +17,7 @@ class UserLogin(BaseModel):
 
 class User(UserBase):
     id: int
+    profile_picture: Optional[str] = None
     is_active: bool
     is_admin: bool
     created_at: datetime
@@ -83,4 +84,13 @@ class Analytics(BaseModel):
     total_users: int
     total_chats: int
     most_common_diseases: List[DiseaseStats]
-    recent_activity: dict 
+    recent_activity: dict
+
+# Profile schemas
+class PasswordChange(BaseModel):
+    current_password: str
+    new_password: str
+
+class ProfileUpdate(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None 
